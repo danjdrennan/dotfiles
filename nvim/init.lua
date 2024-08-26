@@ -115,6 +115,11 @@ require('lazy').setup({
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',  opts = {} },
   {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
+  {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -193,20 +198,21 @@ require('lazy').setup({
     },
   },
 
-  -- {
-  --   -- Theme inspired by Atom
-  --   'navarasu/onedark.nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme 'onedark'
-  --   end,
-  -- },
-
   {
     'rose-pine/neovim',
     as = 'rose-pine',
+    priority = 200,
     config = function()
       vim.cmd.colorscheme 'rose-pine'
+    end
+  },
+
+  {
+    'catppuccin/nvim',
+    as = 'catppuccin',
+    priority = 100,
+    config = function()
+      vim.cmd.colorscheme 'catppuccin-mocha'
     end
   },
 
@@ -217,7 +223,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'catppuccin-mocha',
         component_separators = '|',
         section_separators = '',
       },
@@ -435,7 +441,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -577,8 +583,10 @@ require('mason-lspconfig').setup()
 local servers = {
   clangd = {},
   -- gopls = {},
-  pyright = {},
-  ltex = {},
+  texlab = {},
+  basedpyright = {},
+  ruff = {},
+  ruff_lsp = {},
   rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
