@@ -1,0 +1,26 @@
+[user]
+	name = Dan Drennan
+	email = danjdrennan@gmail.com
+	signingkey = 1DBEDB72DBFB9637
+[core]
+	excludesFile = ~/.gitignore
+	filemode = true
+	editor = nvim
+[alias]
+	slog = log --oneline
+	graph = log --oneline --graph --all
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[oh-my-zsh]
+	hide-status = 1
+[init]
+	defaultBranch = master
