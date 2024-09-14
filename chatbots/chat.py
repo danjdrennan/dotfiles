@@ -43,6 +43,17 @@ def text_writer(fname: str, messages: list[Message]):
             f.write(content)
 
 
+def get_system_prompt(prompt: str) -> str:
+    if "/load " in prompt:
+        fname = prompt[6:]
+        try:
+            with open(fname, "r") as f:
+                return f.read()
+        except FileNotFoundError as e:
+            print(f"File not found {e}")
+    return ""
+
+
 class ModelInterface:
     api_key: str
     model: str
@@ -207,7 +218,12 @@ def event_loop(args: argparse.Namespace):
     """Main event loop."""
     dotenv.load_dotenv()
 
-    system_prompt = os.getenv("PROMPT") or "You are a programming assistant."
+    if args.system_prompt:
+        # Need to load it from a file or take a text string as input from the user.
+        system_prompt = input("System prompt: ")
+        system_prompt = get_system_prompt(system_prompt)
+    else:
+        system_prompt = os.getenv("PROMPT") or "You are a programming assistant."
     temperature = args.temperature
     max_tokens = args.max_tokens
 
@@ -269,6 +285,12 @@ if __name__ == "__main__":
         type=int,
         default=2048,
         help="Max number of tokens available for completions.",
+    )
+    parser.add_argument(
+        "-s",
+        "--system_prompt",
+        action="store_true",
+        help="Replace the default system prompt with a custom one.",
     )
     parser.add_argument(
         "-t",
