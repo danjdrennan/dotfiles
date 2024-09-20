@@ -1,7 +1,5 @@
 # neovim config files
 
-<warning>Here is a warning</warning>
-
 Here is a config based on the kickstart.nvim configuration. If you copy this
 down into `~/.config/nvim` then it should "just work" (although that's rarely
 the case). I think using this got me 95% of the way to working with neovim
