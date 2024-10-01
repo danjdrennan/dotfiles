@@ -28,32 +28,6 @@ class TokenUse(NamedTuple):
         return cls(input_tokens, output_tokens, total_tokens)
 
 
-def text_writer(fname: str, messages: list[Message]):
-    with open(fname, "w") as f:
-        f.write(f"# {fname.split('.')[0]}\n\n")
-        f.write("## Question\n")
-        f.write(messages[0]["content"])
-        for message in messages[1:]:
-            role = message["role"]
-            if role == "user":
-                f.write("\n\n## Question\n")
-            else:
-                f.write("\n\n---\n\n")
-            content = message["content"]
-            f.write(content)
-
-
-def get_system_prompt(prompt: str) -> str:
-    if "/load " in prompt:
-        fname = prompt[6:]
-        try:
-            with open(fname, "r") as f:
-                return f.read()
-        except FileNotFoundError as e:
-            print(f"File not found {e}")
-    return ""
-
-
 class ModelInterface:
     api_key: str
     model: str
@@ -84,7 +58,9 @@ class ModelInterface:
         try:
             with open(fname, "r") as f:
                 text = f.read()
-                content = f"<file_name>{fname}</file_name>\n<|im_start>{text}<|im_end|>"
+                content = (
+                    f"<file_name>{fname}</file_name>\n<|content|>{text}<|content|>"
+                )
                 self.messages.append({"role": "user", "content": content})
         except FileNotFoundError as e:
             print(f"File not found {e}")
@@ -212,6 +188,32 @@ class AnthropicModel(ModelInterface):
     def new_session(self):
         """Creates a new session by dropping all messages."""
         self.messages = []
+
+
+def text_writer(fname: str, messages: list[Message]):
+    with open(fname, "w") as f:
+        f.write(f"# {fname.split('.')[0]}\n\n")
+        f.write("## Question\n")
+        f.write(messages[0]["content"])
+        for message in messages[1:]:
+            role = message["role"]
+            if role == "user":
+                f.write("\n\n## Question\n")
+            else:
+                f.write("\n\n---\n\n")
+            content = message["content"]
+            f.write(content)
+
+
+def get_system_prompt(prompt: str) -> str:
+    if "/load " in prompt:
+        fname = prompt[6:]
+        try:
+            with open(fname, "r") as f:
+                return f.read()
+        except FileNotFoundError as e:
+            print(f"File not found {e}")
+    return ""
 
 
 def event_loop(args: argparse.Namespace):
