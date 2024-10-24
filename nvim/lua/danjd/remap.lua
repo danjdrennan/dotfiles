@@ -2,8 +2,8 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "G", "Gzz")
 
-vim.keymap.set("n", "<C-J>", ":cnext<CR>")
-vim.keymap.set("n", "<C-K>", ":cprev<CR>")
+vim.keymap.set("n", "<C-n>", ":cnext<CR>")
+vim.keymap.set("n", "<C-p>", ":cprev<CR>")
 
 vim.keymap.set("n", "<leader>bl", function() vim.cmd.buffers() end)
 vim.keymap.set("n", "<leader>bd", function()
