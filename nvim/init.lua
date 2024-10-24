@@ -559,8 +559,6 @@ wk.add({
   { "<leader>d_", hidden = true },
   { "<leader>g",  group = "[G]it" },
   { "<leader>g_", hidden = true },
-  { "<leader>h",  group = "Git [H]unk" },
-  { "<leader>h_", hidden = true },
   { "<leader>r",  group = "[R]ename" },
   { "<leader>r_", hidden = true },
   { "<leader>s",  group = "[S]earch" },
@@ -574,8 +572,10 @@ wk.add({
 -- register which-key VISUAL mode
 -- required for visual <leader>hs (hunk stage) to work
 wk.add({
-  { "<leader>",  group = "VISUAL <leader>" },
-  { "<leader>h", desc = "Git [H]unk" },
+  { "<leader>",   group = "VISUAL <leader>" },
+  { "<leader>_",  hidden = true },
+  { "<leader>h",  group = "Git [H]unk" },
+  { "<leader>h_", hidden = true },
 }, { mode = "v" })
 
 -- mason-lspconfig requires that these setup functions are called in this order
