@@ -232,7 +232,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'no-clown-fiesta',
+        theme = vim.g.colors_name,
         component_separators = '|',
         section_separators = '',
       },
