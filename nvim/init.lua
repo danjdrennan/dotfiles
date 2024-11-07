@@ -607,7 +607,6 @@ local servers = {
   texlab = {},
   basedpyright = {},
   ruff = {},
-  ruff_lsp = {},
   rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
