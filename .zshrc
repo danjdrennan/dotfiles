@@ -88,7 +88,14 @@ else
   export EDITOR='nvim'
 fi
 
+if [[ -n $SSH_CONNECTION ]]; then
+  export TERM='alacritty'
+fi
+
 alias chat="zsh ~/.gpt/chatbot.sh"
+
+alias vi="vim"
+alias vim="nvim"
 
 export CODE="/mnt/code"
 export COURSES="/mnt/courses"
