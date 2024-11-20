@@ -191,6 +191,12 @@ class AnthropicModel(ModelInterface):
 
 
 def text_writer(fname: str, messages: list[Message]):
+    if "~" in fname:
+        os.path.expanduser(fname)
+    path, _ = os.path.split(fname)
+    if not os.path.exists(path):
+        print(f"Path {path} does not exist.")
+        return
     with open(fname, "w") as f:
         f.write(f"# {fname.split('.')[0]}\n\n")
         f.write("## Question\n")
@@ -203,6 +209,8 @@ def text_writer(fname: str, messages: list[Message]):
                 f.write("\n\n---\n\n")
             content = message["content"]
             f.write(content)
+
+    return
 
 
 def get_system_prompt(prompt: str) -> str:
