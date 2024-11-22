@@ -94,7 +94,6 @@ fi
 
 alias chat="zsh ~/.gpt/chatbot.sh"
 
-alias vi="vim"
 alias vim="nvim"
 
 export CODE="/mnt/code"
