@@ -194,6 +194,8 @@ def text_writer(fname: str, messages: list[Message]):
     if "~" in fname:
         fname = os.path.expanduser(fname)
     path, _ = os.path.split(fname)
+    if path is None or path == "":
+        path = "."
     if not os.path.exists(path):
         print(f"Path {path} does not exist.")
         return
