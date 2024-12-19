@@ -112,8 +112,11 @@ require('lazy').setup({
     },
   },
 
+
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  {
+    'folke/which-key.nvim', opts = {}
+  },
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
@@ -249,7 +252,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',  opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
