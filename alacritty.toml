@@ -3,6 +3,7 @@ opacity=0.85
 
 [font]
 normal.family = "Iosevka"
+size = 10
 
 # no-clown-fiesta theme
 [colors.primary]
