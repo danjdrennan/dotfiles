@@ -8,6 +8,8 @@ exec_always --no-startup-id feh --bg-scale $HOME/Pictures/desktops/8571.jpg
 exec_always --no-startup-id export GTK_THEME=Adwaita:dark
 exec_always --no-startup-id xset dpms 0 0 1200
 exec_always --no-startup-id xset s 1200
+exec_always --no-startup-id gnome-bluetooth-applet
+exec_always --no-startup-id bluetooth-applet
 
 # i3 config file (v4)
 #
