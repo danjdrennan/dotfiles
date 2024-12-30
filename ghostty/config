@@ -1,0 +1,7 @@
+theme = catppuccin-mocha
+cursor-style = block
+font-family = ""
+font-family = Iosevka Term
+font-feature = -calt -liga -dlig
+
+gtk-titlebar = false
