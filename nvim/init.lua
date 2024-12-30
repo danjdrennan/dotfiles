@@ -213,7 +213,7 @@ require('lazy').setup({
   {
     'catppuccin/nvim',
     as = 'catppuccin',
-    priority = 200,
+    priority = 100,
     config = function()
       vim.cmd.colorscheme 'catppuccin-mocha'
     end
@@ -222,7 +222,7 @@ require('lazy').setup({
   {
     "aktersnurra/no-clown-fiesta.nvim",
     as = "no-clown-fiesta",
-    priority = 100,
+    priority = 200,
     config = function()
       vim.cmd.colorscheme 'no-clown-fiesta'
     end
