@@ -213,7 +213,7 @@ require('lazy').setup({
   {
     'catppuccin/nvim',
     as = 'catppuccin',
-    priority = 200,
+    priority = 100,
     config = function()
       vim.cmd.colorscheme 'catppuccin-mocha'
     end
@@ -222,7 +222,7 @@ require('lazy').setup({
   {
     "aktersnurra/no-clown-fiesta.nvim",
     as = "no-clown-fiesta",
-    priority = 100,
+    priority = 200,
     config = function()
       vim.cmd.colorscheme 'no-clown-fiesta'
     end
@@ -360,7 +360,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
-    vim.hl.on_yank()
+    vim.highlight.on_yank()
   end,
   group = highlight_group,
   pattern = '*',
