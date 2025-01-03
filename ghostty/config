@@ -5,3 +5,17 @@ font-family = Iosevka Term
 font-feature = -calt -liga -dlig
 
 gtk-titlebar = false
+gtk-single-instance = true
+focus-follows-mouse = true
+
+keybind = super+t=new_tab
+keybind = super+v=new_split:right
+keybind = super+s=new_split:down
+keybind = super+w=next_tab
+keybind = super+q=previous_tab
+# keybind = super+n=next_split
+# keybind = super+p=previous_split
+keybind = super+h=goto_split:left
+keybind = super+j=goto_split:bottom
+keybind = super+k=goto_split:top
+keybind = super+l=goto_split:right
