@@ -1,21 +1,28 @@
 theme = catppuccin-mocha
-cursor-style = block
 font-family = ""
 font-family = Iosevka Term
 font-feature = -calt -liga -dlig
 
+focus-follows-mouse = true
+cursor-style = block
+cursor-style-blink = false
+
 gtk-titlebar = false
 gtk-single-instance = true
-focus-follows-mouse = true
+
 
 keybind = super+t=new_tab
-keybind = super+v=new_split:right
-keybind = super+s=new_split:down
+
 keybind = super+w=next_tab
 keybind = super+q=previous_tab
-# keybind = super+n=next_split
-# keybind = super+p=previous_split
+
+keybind = super+v=new_split:right
+keybind = super+s=new_split:down
 keybind = super+h=goto_split:left
 keybind = super+j=goto_split:bottom
 keybind = super+k=goto_split:top
 keybind = super+l=goto_split:right
+
+keybind = super+e=equalize_splits
+keybind = super+r=resize_split:left,30
+keybind = super+t=resize_split:right,30
