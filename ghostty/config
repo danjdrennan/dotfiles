@@ -1,4 +1,5 @@
 theme = catppuccin-mocha
+font-size = 11
 font-family = ""
 font-family = iosevka
 font-feature = calt
