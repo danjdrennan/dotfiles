@@ -1,7 +1,9 @@
 theme = catppuccin-mocha
 font-family = ""
-font-family = Iosevka Term
-font-feature = -calt -liga -dlig
+font-family = iosevka
+font-feature = calt
+font-feature = liga
+font-feature = dlig
 
 focus-follows-mouse = true
 cursor-style = block
