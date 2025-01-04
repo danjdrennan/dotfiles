@@ -5,54 +5,6 @@ opacity=1.0
 normal.family = "Iosevka"
 size = 11
 
-# no-clown-fiesta theme
-# [colors.primary]
-# background = "#151515"  # bg from Lua
-# foreground = "#E1E1E1"  # fg from Lua
-# dim_foreground = "#727272"  # medium_gray from Lua
-#
-# [colors.cursor]
-# text = "#151515"        # cursor_fg from Lua
-# cursor = "#D0D0D0"      # cursor_bg from Lua
-#
-# [colors.normal]
-# black = "#373737"       # gray from Lua
-# red = "#b46958"         # red from Lua
-# green = "#90A959"       # green from Lua
-# yellow = "#F4BF75"      # yellow from Lua
-# blue = "#BAD7FF"        # blue from Lua
-# magenta = "#AA759F"     # magenta from Lua
-# cyan = "#88afa2"        # cyan from Lua
-# white = "#E1E1E1"       # white from Lua
-#
-# [colors.bright]
-# black = "#727272"       # medium_gray from Lua
-# red = "#b46958"         # red from Lua (no bright variant provided)
-# green = "#90A959"       # green from Lua (no bright variant provided)
-# yellow = "#F4BF75"      # yellow from Lua (no bright variant provided)
-# blue = "#BAD7FF"        # blue from Lua (no bright variant provided)
-# magenta = "#AA759F"     # magenta from Lua (no bright variant provided)
-# cyan = "#88afa2"        # cyan from Lua (no bright variant provided)
-# white = "#AFAFAF"       # light_gray from Lua
-#
-# [colors.dim]
-# black = "#373737"       # gray from Lua
-# red = "#b46958"         # red from Lua (no dim variant provided)
-# green = "#90A959"       # green from Lua (no dim variant provided)
-# yellow = "#F4BF75"      # yellow from Lua (no dim variant provided)
-# blue = "#BAD7FF"        # blue from Lua (no dim variant provided)
-# magenta = "#AA759F"     # magenta from Lua (no dim variant provided)
-# cyan = "#88afa2"        # cyan from Lua (no dim variant provided)
-# white = "#727272"       # medium_gray from Lua
-#
-# [[colors.indexed_colors]]
-# index = 16
-# color = "#FFA557"       # orange from Lua
-#
-# [[colors.indexed_colors]]
-# index = 17
-# color = "#AA749F"       # purple from Lua
-
 # catpuccin mocha theme colors
 [colors.primary]
 background = '#1E1E2E' # base
