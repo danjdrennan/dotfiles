@@ -62,10 +62,10 @@ tiling_drag modifier titlebar
 bindsym $mod+Return exec ghostty
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+d kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+Shift+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
