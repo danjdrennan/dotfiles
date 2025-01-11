@@ -7,7 +7,6 @@ set shiftwidth=4
 set expandtab
 
 set colorcolumn=80
-highlight ColorColumn ctermbg=gray guibg=gray
 
 set textwidth=80
 

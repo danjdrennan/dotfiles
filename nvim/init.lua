@@ -611,6 +611,7 @@ local servers = {
   basedpyright = {},
   ruff = {},
   rust_analyzer = {},
+  zls = { zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
