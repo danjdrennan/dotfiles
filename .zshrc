@@ -124,3 +124,16 @@ export DATA="/mnt/data"
 # This section can be safely removed at any time if needed.
 [[ ! -r '/home/danjd/.opam/opam-init/init.zsh' ]] || source '/home/danjd/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
+
+# use more features in less (e.g. for man pages)
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+vman() {
+  nvim -c "Man $1 $2" -c 'silent only'
+}
