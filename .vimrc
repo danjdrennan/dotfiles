@@ -1,4 +1,5 @@
 syntax enable
+
 set number
 set relativenumber
 
@@ -20,5 +21,10 @@ inoremap ' ''<left>
 inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
+inoremap < <><left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
+
+nnoremap <SPACE> <Nop>
+let mapleader="\<Space>"
+
