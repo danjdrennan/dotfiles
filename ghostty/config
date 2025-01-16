@@ -29,3 +29,5 @@ keybind = super+l=goto_split:right
 keybind = super+e=equalize_splits
 keybind = super+f=resize_split:left,30
 keybind = super+b=resize_split:right,30
+
+keybind = ctrl+enter=unbind
