@@ -142,7 +142,7 @@ require('lazy').setup({
         else
           cb({
             type = 'executable',
-            command = '/home/danjd/.local/bin/debugpy/bin/python',
+            command = '/home/danjd/.local/share/nvim/mason/bin/debugpy',
             args = { '-m', 'debugpy.adapter' },
             options = {
               source_filetype = 'python',
