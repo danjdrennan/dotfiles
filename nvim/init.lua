@@ -112,6 +112,74 @@ require('lazy').setup({
     },
   },
 
+  {
+    -- Debugger protocol
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'rcarriga/nvim-dap-ui',
+      'nvim-neotest/nvim-nio',
+    },
+    config = function()
+      local dap = require "dap"
+      local ui = require "dapui"
+
+      require("dapui").setup()
+
+      dap.adapters.python = function(cb, config)
+        if config.request == "attach" then
+          ---@diagnostic disable-next-line: undefined-field
+          local port = (config.connect or config).port
+          ---@diagnostic disable-next-line: undefined-field
+          local host = (config.connect or config).host or "127.0.0.1"
+          cb({
+            type = "server",
+            port = assert(port, '`connect.port` is required for a python `attach` configuration'),
+            host = host,
+            options = {
+              source_filetype = "python",
+            },
+          })
+        else
+          cb({
+            type = 'executable',
+            command = '/home/danjd/.local/bin/debugpy/bin/python',
+            args = { '-m', 'debugpy.adapter' },
+            options = {
+              source_filetype = 'python',
+            },
+          })
+        end
+      end
+
+      vim.keymap.set("n", ",b", dap.toggle_breakpoint)
+      vim.keymap.set("n", ",gb", dap.run_to_cursor)
+
+      vim.keymap.set("n", ",?", function()
+        require("dapui").eval(nil, { enter = true })
+      end)
+
+      vim.keymap.set("n", "<F1>", dap.continue)
+      vim.keymap.set("n", "<F2>", dap.step_into)
+      vim.keymap.set("n", "<F3>", dap.step_over)
+      vim.keymap.set("n", "<F4>", dap.step_out)
+      vim.keymap.set("n", "<F5>", dap.step_back)
+      vim.keymap.set("n", "<F6>", dap.restart)
+
+      dap.listeners.before.attach.dapui_config = function()
+        ui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        ui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        ui.close()
+      end
+      dap.listeners.before.event_exexited.dapui_config = function()
+        ui.close()
+      end
+    end,
+  },
+
   -- Useful plugin to show you pending keybinds.
   {
     'folke/which-key.nvim', opts = {}
@@ -705,11 +773,6 @@ cmp.setup {
     { name = 'path' },
   },
 }
-
--- [[ Configure nvim-dap ]]
--- see :h dap-mapping
--- see :h dap-api
-local dap = require 'nvim-dap'
 
 vim.cmd [[filetype plugin on]]
 
