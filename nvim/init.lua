@@ -112,16 +112,17 @@ require('lazy').setup({
     },
   },
 
-
   -- Useful plugin to show you pending keybinds.
   {
     'folke/which-key.nvim', opts = {}
   },
+
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" }
   },
+
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -195,6 +196,7 @@ require('lazy').setup({
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
       end,
     },
+
     {
       "amrbashir/nvim-docs-view",
       opts = { position = "right", width = 60 },
@@ -703,6 +705,11 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+-- [[ Configure nvim-dap ]]
+-- see :h dap-mapping
+-- see :h dap-api
+local dap = require 'nvim-dap'
 
 vim.cmd [[filetype plugin on]]
 
