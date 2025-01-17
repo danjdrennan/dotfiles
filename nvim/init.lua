@@ -151,6 +151,27 @@ require('lazy').setup({
         end
       end
 
+      dap.configurations.python = {
+        {
+          type = 'python',
+          request = 'launch',
+          name = 'Launch file',
+          Xfrozen_modules = 'off',
+
+          program = "${file}",
+          pythonPath = function()
+            local cwd = vim.fn.getcwd()
+            if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+              return cwd .. '/venv/bin/python'
+            elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+              return cwd .. '/.venv/bin/python'
+            else
+              return '/usr/bin/python'
+            end
+          end,
+        },
+      }
+
       vim.keymap.set("n", ",b", dap.toggle_breakpoint)
       vim.keymap.set("n", ",gb", dap.run_to_cursor)
 
