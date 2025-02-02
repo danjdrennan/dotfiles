@@ -699,15 +699,11 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   clangd = {},
-  -- gopls = {},
   texlab = {},
   basedpyright = {},
   ruff = {},
   rust_analyzer = {},
-  zls = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+  zls = { cmd = { "/home/danjd/.local/share/nvim/mason/bin/zls" }, zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
