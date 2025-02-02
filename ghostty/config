@@ -1,6 +1,6 @@
 gtk-titlebar = false
 gtk-single-instance = true
-window-decoration = true
+window-decoration = none
 
 focus-follows-mouse = true
 cursor-style = block
