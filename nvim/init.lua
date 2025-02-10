@@ -545,7 +545,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'bash', 'c', 'cmake', 'cpp', 'lua', 'python', 'rust', 'vimdoc', 'vim' },
+    ensure_installed = { 'bash', 'c', 'cmake', 'cpp', 'lua', 'markdown', 'python', 'rust', 'vimdoc', 'vim', 'zig' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -603,7 +603,7 @@ vim.defer_fn(function()
           ['<leader>ma'] = '@parameter.inner',
         },
         swap_previous = {
-          ['<leader>:mA'] = '@parameter.inner',
+          ['<leader>mA'] = '@parameter.inner',
         },
       },
     },
@@ -703,7 +703,7 @@ local servers = {
   basedpyright = {},
   ruff = {},
   rust_analyzer = {},
-  zls = { cmd = { "/home/danjd/.local/share/nvim/mason/bin/zls" }, zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
+  zls = { zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
