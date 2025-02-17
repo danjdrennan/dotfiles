@@ -700,6 +700,7 @@ require('mason-lspconfig').setup()
 local servers = {
   clangd = {},
   texlab = {},
+  gopls = {},
   basedpyright = {},
   ruff = {},
   rust_analyzer = {},
