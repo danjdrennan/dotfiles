@@ -1,6 +1,7 @@
 gtk-titlebar = false
 gtk-single-instance = true
 window-decoration = none
+shell-integration = zsh
 
 focus-follows-mouse = true
 cursor-style = block
