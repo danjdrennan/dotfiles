@@ -4,7 +4,7 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
-exec_always --no-startup-id feh --bg-scale $HOME/Pictures/desktops/8571.jpg
+exec_always --no-startup-id feh --bg-scale $HOME/Pictures/desktops/andromeda-4k.jpg
 exec_always --no-startup-id export GTK_THEME=Adwaita:dark
 exec_always --no-startup-id xset dpms 0 0 1200
 exec_always --no-startup-id xset s 1200
@@ -16,7 +16,7 @@ exec_always --no-startup-id bluetooth-applet
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 exec --no-startup-id picom
-exec --no-startp-id feh --bg-scale ~/Pictures/desktops/8571.jpg
+exec --no-startp-id feh --bg-scale ~/Pictures/desktops/andromeda-4k.jpg
 
 set $mod Mod1
 
