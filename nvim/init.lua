@@ -186,6 +186,7 @@ require('lazy').setup({
       vim.keymap.set("n", "<F4>", dap.step_out)
       vim.keymap.set("n", "<F5>", dap.step_back)
       vim.keymap.set("n", "<F6>", dap.restart)
+      vim.keymap.set("n", "<F7>", dap.close)
 
       dap.listeners.before.attach.dapui_config = function()
         ui.open()
@@ -196,7 +197,7 @@ require('lazy').setup({
       dap.listeners.before.event_terminated.dapui_config = function()
         ui.close()
       end
-      dap.listeners.before.event_exexited.dapui_config = function()
+      dap.listeners.before.event_exited.dapui_config = function()
         ui.close()
       end
     end,
