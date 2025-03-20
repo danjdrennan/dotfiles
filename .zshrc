@@ -137,3 +137,5 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 vman() {
   nvim -c "Man $1 $2" -c 'silent only'
 }
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
