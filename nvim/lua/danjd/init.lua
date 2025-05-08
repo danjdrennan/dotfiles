@@ -7,7 +7,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local BufferAutos = augroup('BufferAutos', {})
 
-autocmd({ "BufWritePre" }, {
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     group = BufferAutos,
     pattern = "*",
     command = [[%s/\s\+$//e]],
