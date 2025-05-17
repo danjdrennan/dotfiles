@@ -1,43 +1,3 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
-
-Kickstart Guide:
-
-I have left several `:help X` comments throughout the init.lua
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -71,7 +31,6 @@ require('lazy').setup({
 
   -- Git related plugins
   'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -108,9 +67,6 @@ require('lazy').setup({
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-
-      -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
     },
   },
 
@@ -205,11 +161,6 @@ require('lazy').setup({
     end,
   },
 
-  -- Useful plugin to show you pending keybinds.
-  {
-    'folke/which-key.nvim', opts = {}
-  },
-
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
@@ -289,11 +240,6 @@ require('lazy').setup({
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
       end,
     },
-
-    {
-      "amrbashir/nvim-docs-view",
-      opts = { position = "right", width = 60 },
-    },
   },
 
   {
@@ -337,17 +283,17 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
-    opts = {},
-  },
+  -- {
+  --   -- Add indentation guides even on blank lines
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   -- Enable `lukas-reineke/indent-blankline.nvim`
+  --   -- See `:help ibl`
+  --   main = 'ibl',
+  --   opts = {},
+  -- },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',  opts = {} },
+  -- { 'numToStr/Comment.nvim',  opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -394,47 +340,6 @@ require('lazy').setup({
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
 }, {})
-
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
--- Set highlight on search
-vim.o.hlsearch = false
-
--- Make line numbers default
-vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 
@@ -629,6 +534,7 @@ local servers = {
   texlab = {},
   gopls = {},
   basedpyright = {},
+  tinymist = {},
   ruff = {},
   rust_analyzer = {},
   zls = { zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
@@ -767,36 +673,6 @@ cmp.setup {
     { name = 'path' },
   },
 }
-
--- document existing key
-local wk = require('which-key')
-
-wk.add({
-  { "<leader>c",  group = "[C]ode" },
-  { "<leader>c_", hidden = true },
-  { "<leader>d",  group = "[D]ocument" },
-  { "<leader>d_", hidden = true },
-  { "<leader>g",  group = "[G]it" },
-  { "<leader>g_", hidden = true },
-  { "<leader>r",  group = "[R]ename" },
-  { "<leader>r_", hidden = true },
-  { "<leader>s",  group = "[S]earch" },
-  { "<leader>s_", hidden = true },
-  { "<leader>t",  group = "[T]oggle" },
-  { "<leader>t_", hidden = true },
-  { "<leader>w",  group = "[W]orkspace" },
-  { "<leader>w_", hidden = true },
-}, { mode = "n" })
-
--- register which-key VISUAL mode
--- required for visual <leader>hs (hunk stage) to work
-wk.add({
-  { "<leader>",   group = "VISUAL <leader>" },
-  { "<leader>_",  hidden = true },
-  { "<leader>h",  group = "Git [H]unk" },
-  { "<leader>h_", hidden = true },
-}, { mode = "v" })
-
 
 vim.cmd [[filetype plugin on]]
 
