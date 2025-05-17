@@ -139,5 +139,3 @@ vman() {
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-bgstart='nohup "$@" &> /dev/null & disown'
