@@ -93,12 +93,12 @@ if [[ -n $SSH_CONNECTION ]]; then
 fi
 
 alias chat="zsh ~/.gpt/chatbot.sh"
-
 alias vim="nvim"
 
 export CODE="/mnt/code"
 export COURSES="/mnt/courses"
 export DATA="/mnt/data"
+export PATH=$PATH:/usr/local/go/bin
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -115,7 +115,6 @@ export DATA="/mnt/data"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
