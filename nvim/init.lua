@@ -326,6 +326,8 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  { import = 'custom.plugins' },
+
 }, {})
 
 -- [[ Basic Keymaps ]]
