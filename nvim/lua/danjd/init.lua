@@ -16,6 +16,24 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     group = BufferAutos,
     pattern = "*",
     callback = function()
-        vim.lsp.buf.format()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        
+        -- Filter clients that can format
+        local formatters = {}
+        for _, client in ipairs(clients) do
+            if client.server_capabilities.documentFormattingProvider then
+                table.insert(formatters, client)
+            end
+        end
+        
+        if #formatters == 0 then
+            return -- No formatters available, skip silently
+        elseif #formatters == 1 then
+            vim.lsp.buf.format({ id = formatters[1].id })
+        else
+            -- Multiple formatters: use first available
+            vim.lsp.buf.format({ id = formatters[1].id })
+        end
     end
 })
