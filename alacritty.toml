@@ -1,6 +1,11 @@
 [font]
 normal.family = "Iosevka"
-size = 14
+size = 14.0
+
+[keyboard]
+bindings = [
+  # Put bindings here, not that they provide enough detail for this yet
+]
 
 # catpuccin mocha theme colors
 [colors.primary]
