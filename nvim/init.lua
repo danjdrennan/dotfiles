@@ -243,15 +243,6 @@ require('lazy').setup({
   },
 
   {
-    'rose-pine/neovim',
-    as = 'rose-pine',
-    priority = 200,
-    config = function()
-      vim.cmd.colorscheme 'rose-pine'
-    end
-  },
-
-  {
     'catppuccin/nvim',
     as = 'catppuccin',
     priority = 100,
