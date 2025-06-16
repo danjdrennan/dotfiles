@@ -93,7 +93,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 fi
 
 alias chat="zsh ~/.gpt/chatbot.sh"
-alias vim="nvim"
 
 export CODE="/mnt/code"
 export COURSES="/mnt/courses"
