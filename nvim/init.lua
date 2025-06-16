@@ -247,6 +247,12 @@ require('lazy').setup({
     as = 'catppuccin',
     priority = 100,
     config = function()
+      -- Specific configuration
+      require("catppuccin").setup({
+        no_italic = true,
+      })
+
+      -- Enable the colorscheme
       vim.cmd.colorscheme 'catppuccin-mocha'
     end
   },
