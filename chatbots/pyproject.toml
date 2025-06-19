@@ -10,6 +10,7 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "anthropic>=0.34.1",
     "ipython>=8.26.0",
+    "google-generativeai>=0.8.5",
 ]
 readme = "README.md"
 license = {text = "MIT"}

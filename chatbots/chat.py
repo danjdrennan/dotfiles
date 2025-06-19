@@ -1,11 +1,14 @@
-from typing import NamedTuple
 import argparse
 import os
-import anthropic
-import openai
-import dotenv
+from typing import NamedTuple
 
-Message = dict[str, str]
+import anthropic
+import dotenv
+import google.generativeai as genai
+import openai
+from google.generativeai.types import GenerateContentResponse, GenerationConfig
+
+Message = dict[str, str | dict[str, str]]
 
 
 class TokenUse(NamedTuple):
@@ -25,6 +28,16 @@ class TokenUse(NamedTuple):
         input_tokens = usage.input_tokens
         output_tokens = usage.output_tokens
         total_tokens = input_tokens + output_tokens
+        return cls(input_tokens, output_tokens, total_tokens)
+
+    @classmethod
+    def from_gemini(cls, response: GenerateContentResponse) -> "TokenUse":
+        """Creates a TokenUse instance from a Gemini API response's usage metadata."""
+        # This is the efficient way to get token counts, included in the generation response.
+        usage = response.usage_metadata
+        input_tokens = usage.prompt_token_count
+        output_tokens = usage.candidates_token_count
+        total_tokens = usage.total_token_count
         return cls(input_tokens, output_tokens, total_tokens)
 
 
@@ -105,11 +118,12 @@ class OpenAIModel(ModelInterface):
         response = self.client.chat.completions.create(  # pyright: ignore
             model=self.model,
             temperature=self.temperature,
-            max_tokens=self.max_tokens,
+            max_completion_tokens=self.max_tokens,
             messages=self.messages,  # pyright: ignore
         )
 
-        message: str = response.choices[0].message.content
+        message: str | None = response.choices[0].message.content
+        assert isinstance(message, str), f"{message}"
         token_use = TokenUse.from_openai(response.usage)  # pyright: ignore
         new_response: Message = {"role": "assistant", "content": message}
         self.messages.append(new_response)
@@ -135,11 +149,13 @@ class AnthropicModel(ModelInterface):
         system_prompt: str,
         max_tokens: int,
         temperature: float,
+        thinking_tokens: bool = False,
     ):
         self.api_key = api_key
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
+        self.thinking_tokens = thinking_tokens
         self.client = anthropic.Anthropic(api_key=api_key)
 
         self.system_prompt = system_prompt
@@ -161,18 +177,20 @@ class AnthropicModel(ModelInterface):
         self.messages.append(new_query)
 
         # LSP doesn't understand this interface
-        response = self.client.messages.create(  # pyright: ignore
-            model=self.model,
-            temperature=self.temperature,
-            system=self.system_prompt,  # pyright: ignore
-            max_tokens=self.max_tokens,
-            messages=self.messages,  # pyright: ignore
-        )
+        create_kwargs = {
+            "model": self.model,
+            "temperature": self.temperature,
+            "system": self.system_prompt,
+            "max_tokens": self.max_tokens,
+            "messages": self.messages,
+            "service_tier": "auto",
+        }
 
-        message: str = response.content[0].text  # pyright: ignore
+        response = self.client.messages.create(**create_kwargs)  # pyright: ignore
+
+        message: str = response.content[-1].text  # pyright: ignore
         token_use = TokenUse.from_anthropic(response.usage)
-        new_response: Message = {"role": "assistant", "content": message}
-        self.messages.append(new_response)
+        self.messages.append({"role": "assistant", "content": message})
 
         return message, token_use
 
@@ -188,6 +206,77 @@ class AnthropicModel(ModelInterface):
     def new_session(self):
         """Creates a new session by dropping all messages."""
         self.messages = []
+
+
+class GeminiModel(ModelInterface):
+    def __init__(
+        self,
+        *,
+        api_key: str,
+        model: str,
+        system_prompt: str,
+        max_tokens: int,
+        temperature: float,
+    ):
+        self.api_key = api_key
+        self.model_name = model  # Renamed to avoid conflict with 'model' role
+        self.temperature = temperature
+        self.max_tokens = max_tokens
+
+        genai.configure(api_key=api_key)
+
+        # The GenerativeModel is configured once with system instructions and reused.
+        self.model = genai.GenerativeModel(
+            model_name=self.model_name,
+            system_instruction=system_prompt,
+        )
+        self.messages: list[Message] = []
+
+    def query(self, query: str) -> tuple[str, TokenUse]:
+        # Squash consecutive user messages, same as your other implementations
+        new_content = ""
+        while len(self.messages) >= 1 and self.messages[-1]["role"] == "user":
+            user_content: Message = self.messages.pop()
+            new_content += "\n" + user_content["content"]
+        new_content += "\n" + query
+        new_query: Message = {"role": "user", "content": new_content}
+
+        # Build the history for the API call from the current conversation state
+        temp_history = self.messages + [new_query]
+
+        # The Gemini API uses 'model' for the assistant role. We convert on-the-fly.
+        # The 'parts' key is also required by the API.
+        gemini_history = [
+            {
+                "role": "model" if msg["role"] == "assistant" else "user",
+                "parts": [msg["content"]],
+            }
+            for msg in temp_history
+        ]
+
+        generation_config = GenerationConfig(
+            max_output_tokens=self.max_tokens, temperature=self.temperature
+        )
+
+        response = self.model.generate_content(
+            gemini_history, generation_config=generation_config
+        )
+
+        message: str = response.text or "Error: No text content in response."
+
+        token_use = TokenUse.from_gemini(response)
+
+        self.messages.append(new_query)
+        new_response: Message = {"role": "assistant", "content": message}
+        self.messages.append(new_response)
+
+        return message, token_use
+
+    def save(self, fname: str | None = None):
+        """Write chat messages out."""
+        if not fname:
+            fname = f"{self.model_name}-messages{len(self.messages)}.md"
+        text_writer(fname, self.messages)
 
 
 def text_writer(fname: str, messages: list[Message]):
@@ -232,17 +321,28 @@ def event_loop(args: argparse.Namespace):
 
     if args.system_prompt:
         # Need to load it from a file or take a text string as input from the user.
-        system_prompt = input("System prompt: ")
+        system_prompt = get_input("System prompt: ")
         system_prompt = get_system_prompt(system_prompt)
     else:
-        system_prompt = os.getenv("PROMPT") or "You are a programming assistant."
+        system_prompt = os.getenv("PROMPT", "")
     temperature = args.temperature
     max_tokens = args.max_tokens
 
     if args.use_anthropic:
-        model = os.getenv("ANTHROPIC_MODEL") or "claude-3.5-sonnet-20240620"
-        api_key = os.getenv("ANTHROPIC_API_KEY") or "failed_load"
+        model = os.getenv("ANTHROPIC_MODEL", "")
+        api_key = os.getenv("ANTHROPIC_API_KEY", "")
         client = AnthropicModel(
+            api_key=api_key,
+            model=model,
+            system_prompt=system_prompt,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            thinking_tokens=args.thinking_tokens,
+        )
+    elif args.use_gemini:
+        model = os.getenv("GEMINI_MODEL", "")
+        api_key = os.getenv("GEMINI_API_KEY", "")
+        client = GeminiModel(
             api_key=api_key,
             model=model,
             system_prompt=system_prompt,
@@ -250,8 +350,8 @@ def event_loop(args: argparse.Namespace):
             temperature=temperature,
         )
     else:
-        model = os.getenv("OPENAI_MODEL") or "gpt-4o"
-        api_key = os.getenv("OPENAI_API_KEY") or "failed_to_load"
+        model = os.getenv("OPENAI_MODEL", "")
+        api_key = os.getenv("OPENAI_API_KEY", "")
         client = OpenAIModel(
             api_key=api_key,
             model=model,
@@ -261,7 +361,7 @@ def event_loop(args: argparse.Namespace):
         )
 
     while True:
-        req = input("Question: ")
+        req = get_input("Question: ")
 
         if req in ["", "done", "exit", ":q", "quit", "q", "/done", "/exit"]:
             break
@@ -283,6 +383,20 @@ def event_loop(args: argparse.Namespace):
             print("")
 
 
+def get_input(message: str) -> str:
+    request = input(message)
+    if request != r'"""':
+        return request
+
+    request = []
+    newline = input()
+    while newline != r'"""':
+        request.append(newline)
+        newline = input()
+
+    return "\n".join(request)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Chatbot interface parser.")
     parser.add_argument(
@@ -292,10 +406,16 @@ if __name__ == "__main__":
         help="Use Anthropic models (default=false)",
     )
     parser.add_argument(
+        "-g",
+        "--use-gemini",
+        action="store_true",
+        help="Use Google Gemini models (default=false)",
+    )
+    parser.add_argument(
         "-m",
         "--max_tokens",
         type=int,
-        default=2048,
+        default=16384,
         help="Max number of tokens available for completions.",
     )
     parser.add_argument(
@@ -308,8 +428,15 @@ if __name__ == "__main__":
         "-t",
         "--temperature",
         type=float,
-        default=0.1,
+        default=1.0,
         help="Temperature (creativity) for completions. Bounded t in [0, 1].",
+    )
+    parser.add_argument(
+        "-u",
+        "--thinking-tokens",
+        action="store_true",
+        default=True,
+        help="Use thinking tokens for message generation (Anthropic only)",
     )
 
     args = parser.parse_args()
