@@ -442,7 +442,8 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'bash', 'c', 'cmake', 'cpp', 'lua', 'markdown', 'python', 'rust', 'vimdoc', 'vim', 'zig' },
+    ensure_installed = { 'bash', 'c', 'cmake', 'cpp', 'go', 'lua', 'markdown', 'python', 'rust', 'vimdoc', 'vim', 'zig' },
+    modules = {},
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -569,10 +570,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     local builtin = require 'telescope.builtin'
 
-
+    -- Adding a table of keybinds to attach with the lsp whenever it attaches
+    -- to a buffer
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
     nmap('gd', builtin.lsp_definitions, '[G]oto [D]efinition')
     nmap('gr', builtin.lsp_references, '[G]oto [R]eferences')
     nmap('gI', builtin.lsp_implementations, '[G]oto [I]mplementation')
@@ -597,6 +598,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
 
+    -- Bind all keybinds and other capabilities to the lsp
     if settings.server_capabilities then
       for k, v in pairs(settings.server_capabilities) do
         if v == vim.NIL then
