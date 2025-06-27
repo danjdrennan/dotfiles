@@ -441,11 +441,11 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    -- Add languages to be installed here that you want installed for treesitter
+    -- Add languages that you want installed for treesitter
     ensure_installed = { 'bash', 'c', 'cmake', 'cpp', 'go', 'lua', 'markdown', 'python', 'rust', 'vimdoc', 'vim', 'zig' },
     modules = {},
 
-    -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+    -- Autoinstall languages that are not installed. Defaults to false
     auto_install = false,
     sync_install = false,
     ignore_install = { "javascript", "typescript" },
@@ -506,7 +506,7 @@ vim.defer_fn(function()
       },
     },
   }
-end, 0)
+end, 150)
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
