@@ -71,97 +71,6 @@ require('lazy').setup({
   },
 
   {
-    -- Debugger protocol
-    'mfussenegger/nvim-dap',
-    dependencies = {
-      'rcarriga/nvim-dap-ui',
-      'nvim-neotest/nvim-nio',
-    },
-    config = function()
-      local dap = require "dap"
-      local ui = require "dapui"
-
-      require("dapui").setup()
-
-      dap.adapters.python = function(cb, config)
-        if config.request == 'attach' then
-          ---@diagnostic disable-next-line: undefined-field
-          local port = (config.connect or config).port
-          ---@diagnostic disable-next-line: undefined-field
-          local host = (config.connect or config).host or '127.0.0.1'
-          cb({
-            type = 'server',
-            port = assert(port, '`connect.port` is required for a python `attach` configuration'),
-            host = host,
-            options = {
-              source_filetype = 'python',
-            },
-          })
-        else
-          cb({
-            type = 'executable',
-            command = '/home/danjd/.local/share/nvim/mason/packages/debugpy/venv/bin/python',
-            args = { '-m', 'debugpy.adapter' },
-            options = {
-              source_filetype = 'python',
-            },
-          })
-        end
-      end
-
-      dap.configurations.python = {
-        {
-          -- The first three options are required by nvim-dap
-          type = 'python',
-          request = 'launch',
-          name = "Launch file",
-
-          -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-          program = "${file}",
-          pythonPath = function()
-            local cwd = vim.fn.getcwd()
-            if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-              return cwd .. '/venv/bin/python'
-            elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-              return cwd .. '/.venv/bin/python'
-            else
-              return '/usr/bin/python3'
-            end
-          end,
-        },
-      }
-
-      vim.keymap.set("n", ",b", dap.toggle_breakpoint)
-      vim.keymap.set("n", ",gb", dap.run_to_cursor)
-
-      vim.keymap.set("n", ",?", function()
-        require("dapui").eval(nil, { enter = true })
-      end)
-
-      vim.keymap.set("n", "<F1>", dap.continue)
-      vim.keymap.set("n", "<F2>", dap.step_into)
-      vim.keymap.set("n", "<F3>", dap.step_over)
-      vim.keymap.set("n", "<F4>", dap.step_out)
-      vim.keymap.set("n", "<F5>", dap.step_back)
-      vim.keymap.set("n", "<F6>", dap.restart)
-      vim.keymap.set("n", "<F7>", dap.close)
-
-      dap.listeners.before.attach.dapui_config = function()
-        ui.open()
-      end
-      dap.listeners.before.launch.dapui_config = function()
-        ui.open()
-      end
-      dap.listeners.before.event_terminated.dapui_config = function()
-        ui.close()
-      end
-      dap.listeners.before.event_exited.dapui_config = function()
-        ui.close()
-      end
-    end,
-  },
-
-  {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" }
@@ -254,15 +163,6 @@ require('lazy').setup({
 
       -- Enable the colorscheme
       vim.cmd.colorscheme 'catppuccin-mocha'
-    end
-  },
-
-  {
-    "aktersnurra/no-clown-fiesta.nvim",
-    as = "no-clown-fiesta",
-    priority = 200,
-    config = function()
-      vim.cmd.colorscheme 'no-clown-fiesta'
     end
   },
 
