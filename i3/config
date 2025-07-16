@@ -207,9 +207,8 @@ bar {
         # status_command i3status
         # exec_always killall polybar
         # exec_always --no-startup-id ~/.config/polybar/launch.sh
-#         # mode hide
-#         # hidden_state hide
-#         # modifier Mod1+Mod4
+        # hidden_state hide
+        # modifier Mod1+Mod4
 }
 
 hide_edge_borders both
