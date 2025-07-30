@@ -421,11 +421,11 @@ require('mason-lspconfig').setup()
 local servers = {
   clangd = {},
   texlab = {},
-  gopls = {},
+  -- gopls = {},
   basedpyright = {},
   tinymist = {},
   ruff = {},
-  rust_analyzer = {},
+  -- rust_analyzer = {},
   zls = { zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
   lua_ls = {
     Lua = {
