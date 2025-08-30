@@ -425,7 +425,7 @@ local servers = {
   basedpyright = {},
   tinymist = {},
   ruff = {},
-  -- rust_analyzer = {},
+  rust_analyzer = {},
   zls = { zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
   lua_ls = {
     Lua = {
