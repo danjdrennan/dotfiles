@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(virtualenvwrapper)
+# plugins=(virtualenvwrapper)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,14 +114,6 @@ export PATH=$PATH:/usr/local/go/bin
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-[[ ! -r '/home/danjd/.opam/opam-init/init.zsh' ]] || source '/home/danjd/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
-# END opam configuration
 
 # use more features in less (e.g. for man pages)
 export LESS_TERMCAP_mb=$'\e[1;32m'
