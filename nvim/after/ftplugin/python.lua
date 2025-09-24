@@ -1,6 +1,4 @@
--- ~/.config/nvim/ftplugin/python.lua
-vim.opt_local.spell = true
-
+-- ~/.config/nvim/after/ftplugin/python.lua
 vim.opt_local.textwidth = 80
 vim.opt_local.colorcolumn = "80"
 

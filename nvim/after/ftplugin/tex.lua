@@ -1,4 +1,4 @@
--- ~/.config/nvim/ftplugin/tex.lua
+-- ~/.config/nvim/after/ftplugin/tex.lua
 vim.opt_local.spell = true
 vim.opt_local.textwidth = 80
 vim.opt_local.wrap = false
