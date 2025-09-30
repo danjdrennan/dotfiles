@@ -1,4 +1,9 @@
 -- ~/.config/nvim/after/ftplugin/markdown.lua
+vim.filetype.add {
+  extension = {
+    md = "markdown"
+  },
+}
 vim.opt_local.spell = true
 vim.opt_local.textwidth = 80
 vim.opt_local.wrap = false
