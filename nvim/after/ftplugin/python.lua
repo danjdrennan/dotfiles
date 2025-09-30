@@ -1,4 +1,9 @@
 -- ~/.config/nvim/after/ftplugin/python.lua
+vim.filetype.add {
+  extension = {
+    py = "python"
+  },
+}
 vim.opt_local.textwidth = 80
 vim.opt_local.colorcolumn = "80"
 
