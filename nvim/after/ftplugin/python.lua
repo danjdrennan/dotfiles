@@ -9,6 +9,9 @@ vim.filetype.add {
 -- rather than just parsing them from anywhere in the config. This works for
 -- now with the projects I'm working on, but is brittle to breaking changes of
 -- any kind.
+--
+-- Some other places we might need to look for these formatting rules could
+-- include a ruff.toml file or setup.py or setup.cfg file.
 local function parse_pyproject_toml()
   local root = vim.fs.root(0, "pyproject.toml")
 
