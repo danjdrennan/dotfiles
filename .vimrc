@@ -1,5 +1,4 @@
 syntax enable
-set number
 set relativenumber
 set tabstop=2
 set softtabstop=2
@@ -35,14 +34,13 @@ autocmd BufWritePre * :%s/\\s\\+$//e
 " These tend to be better for text editing than the global settings, which are
 " better for programming langs
 autocmd FileType md setlocal spell spelllang=en_us
-autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType tex setlocal spell spelllang=en_us
-autocmd FileType tex setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 augroup auto_comment
     au!
     au FileType c,cpp,java,scala let b:comment_leader = '// '
     au FileType sh,python let b:comment_leader = '# '
+    au FileType lua let b:comment_leader = '-- '
     au FileType vim let b:comment_leader = '" '
     au FileType tex let b:comment_leader = '% '
 augroup END
