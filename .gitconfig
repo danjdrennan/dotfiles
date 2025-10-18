@@ -1,7 +1,6 @@
 [user]
 	name = Dan Drennan
 	email = danjdrennan@gmail.com
-	signingkey = 1DBEDB72DBFB9637
 [core]
 	excludesFile = ~/.gitignore
 	filemode = true
