@@ -9,6 +9,11 @@ vim.o.hlsearch = false
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
+-- Split buffers right by default when making vertical splits
+-- I like splitting up for help menus, Git commits, and the rest. But splitting
+-- to the left when creating a new pane is diabolical.
+vim.o.splitright = true
+
 -- Enable break indent
 vim.o.breakindent = true
 
