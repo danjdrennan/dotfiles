@@ -34,10 +34,7 @@ require('lazy').setup({
 
   'tpope/vim-sleuth',
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   {
-    -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
@@ -418,14 +415,25 @@ require('mason-lspconfig').setup()
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  clangd = {},
+  clangd = {
+    -- cmd = {
+    --   "clangd",
+    --   "--background-index",
+    --   "--clang-tidy",
+    --   "--header-insertion=iwyu",
+    --   "--completion-style=detailed",
+    --   "--function-arg-placeholders",
+    --   "--query-driver=/usr/bin/g++-13",
+    -- },
+    -- init_options = { clangdFileStatus = true },
+  },
   texlab = {},
   -- gopls = {},
   basedpyright = {},
   tinymist = {},
   ruff = {},
   rust_analyzer = {},
-  zls = { zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
+  zls = { zig_exe_path = "$HOME/.local/bin/zig/zig" },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
