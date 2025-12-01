@@ -415,18 +415,7 @@ require('mason-lspconfig').setup()
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  clangd = {
-    -- cmd = {
-    --   "clangd",
-    --   "--background-index",
-    --   "--clang-tidy",
-    --   "--header-insertion=iwyu",
-    --   "--completion-style=detailed",
-    --   "--function-arg-placeholders",
-    --   "--query-driver=/usr/bin/g++-13",
-    -- },
-    -- init_options = { clangdFileStatus = true },
-  },
+  clangd = {},
   texlab = {},
   -- gopls = {},
   basedpyright = {},
@@ -445,7 +434,8 @@ local servers = {
 -- Setup neovim lua configuration
 require('lazydev').setup()
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+-- nvim-cmp supports additional completion capabilities, so broadcast that to
+-- servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
