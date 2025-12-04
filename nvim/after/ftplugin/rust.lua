@@ -1,8 +1,8 @@
 -- ~/.config/nvim/after/ftplugin/rust.lua
 
-vim.opt_local.textwidth = 100
+vim.opt_local.textwidth = 80
 vim.opt_local.wrap = false
-vim.opt_local.wrapmargin = 4
-vim.opt_local.shiftwidth = 4
-vim.opt_local.tabstop = 4
-vim.opt_local.colorcolumn = "100"
+vim.opt_local.wrapmargin = 2
+vim.opt_local.shiftwidth = 2
+vim.opt_local.tabstop = 2
+vim.opt_local.colorcolumn = "80"

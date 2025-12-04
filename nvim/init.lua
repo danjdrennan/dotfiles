@@ -34,10 +34,7 @@ require('lazy').setup({
 
   'tpope/vim-sleuth',
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   {
-    -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
@@ -425,7 +422,7 @@ local servers = {
   tinymist = {},
   ruff = {},
   rust_analyzer = {},
-  zls = { zig_exe_path = "/home/danjd/.local/bin/zig/zig" },
+  zls = { zig_exe_path = "$HOME/.local/bin/zig/zig" },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -437,7 +434,8 @@ local servers = {
 -- Setup neovim lua configuration
 require('lazydev').setup()
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+-- nvim-cmp supports additional completion capabilities, so broadcast that to
+-- servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
