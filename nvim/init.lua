@@ -148,17 +148,31 @@ require('lazy').setup({
   },
 
   {
-    'catppuccin/nvim',
-    as = 'catppuccin',
+    -- 'catppuccin/nvim',
+    -- as = 'catppuccin',
+    -- priority = 100,
+    -- config = function()
+    --   -- Specific configuration
+    --   require("catppuccin").setup({
+    --     no_italic = true,
+    --   })
+    --
+    --   -- Enable the colorscheme
+    --   vim.cmd.colorscheme 'catppuccin-mocha'
+    -- end
+    --
+    'ellisonleao/gruvbox.nvim',
+    as = 'gruvbox',
     priority = 100,
     config = function()
       -- Specific configuration
-      require("catppuccin").setup({
+      require("gruvbox").setup({
         no_italic = true,
       })
 
       -- Enable the colorscheme
-      vim.cmd.colorscheme 'catppuccin-mocha'
+      vim.cmd.colorscheme 'gruvbox'
+      vim.o.background = 'dark'
     end
   },
 
@@ -419,9 +433,9 @@ local servers = {
   texlab = {},
   -- gopls = {},
   basedpyright = {},
-  tinymist = {},
   ruff = {},
   rust_analyzer = {},
+  tinymist = {},
   zls = { zig_exe_path = "$HOME/.local/bin/zig/zig" },
   lua_ls = {
     Lua = {
