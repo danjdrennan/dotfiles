@@ -8,8 +8,8 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
-# theme = Catppuccin Mocha
-theme = Gruvbox Dark
+theme = Catppuccin Mocha
+# theme = Gruvbox Dark Hard
 font-size = 16
 font-family = ""
 font-family = Iosevka

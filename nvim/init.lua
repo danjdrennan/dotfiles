@@ -149,32 +149,27 @@ require('lazy').setup({
   },
 
   {
-    -- 'catppuccin/nvim',
-    -- as = 'catppuccin',
-    -- priority = 100,
-    -- config = function()
-    --   -- Specific configuration
-    --   require("catppuccin").setup({
-    --     no_italic = true,
-    --   })
-    --
-    --   -- Enable the colorscheme
-    --   vim.cmd.colorscheme 'catppuccin-mocha'
-    -- end
-    --
-    'ellisonleao/gruvbox.nvim',
-    as = 'gruvbox',
+    'catppuccin/nvim',
+    as = 'catppuccin',
     priority = 100,
     config = function()
       -- Specific configuration
-      require("gruvbox").setup({
+      require("catppuccin").setup({
         no_italic = true,
       })
 
       -- Enable the colorscheme
-      vim.cmd.colorscheme 'gruvbox'
-      vim.o.background = 'dark'
+      vim.cmd.colorscheme 'catppuccin-mocha'
     end
+
+    -- 'wincent/base16-nvim',
+    -- lazy = false,
+    -- priority = 100,
+    -- config = function()
+    --   -- Enable the colorscheme
+    --   vim.cmd.colorscheme 'gruvbox-dark-hard'
+    --   vim.o.background = 'dark'
+    -- end
   },
 
   {
