@@ -129,3 +129,5 @@ vman() {
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="/home/danjd/.pixi/bin:$PATH"
