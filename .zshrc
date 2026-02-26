@@ -97,7 +97,6 @@ alias chat="zsh ~/.gpt/chatbot.sh"
 export CODE="/mnt/code"
 export COURSES="/mnt/courses"
 export DATA="/mnt/data"
-export PATH=$PATH:/usr/local/go/bin
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
