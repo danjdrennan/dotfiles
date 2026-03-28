@@ -466,7 +466,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local bufnr = args.buf
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
-    client.offset_encoding = "utf-16"
+    -- client.offset_encoding = "utf-16"
     local settings = servers[client.name]
     if type(settings) ~= "table" then
       settings = {}
