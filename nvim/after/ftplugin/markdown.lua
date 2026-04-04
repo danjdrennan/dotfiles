@@ -1,13 +1,5 @@
--- ~/.config/nvim/after/ftplugin/markdown.lua
-vim.filetype.add {
-  extension = {
-    md = "markdown"
-  },
-}
+-- No LSP formatter configured for markdown; these settings drive display
 vim.opt_local.spell = true
 vim.opt_local.textwidth = 80
-vim.opt_local.wrap = false
-vim.opt_local.wrapmargin = 2
-vim.opt_local.shiftwidth = 2
-vim.opt_local.tabstop = 2
 vim.opt_local.colorcolumn = "80"
+vim.opt_local.wrap = false

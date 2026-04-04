@@ -1,8 +1,4 @@
--- ~/.config/nvim/after/ftplugin/rust.lua
-
+-- Display settings only; rust_analyzer handles formatting via rustfmt
 vim.opt_local.textwidth = 80
-vim.opt_local.wrap = false
-vim.opt_local.wrapmargin = 2
-vim.opt_local.shiftwidth = 2
-vim.opt_local.tabstop = 2
 vim.opt_local.colorcolumn = "80"
+vim.opt_local.wrap = false
