@@ -1,6 +1,7 @@
 require("danjd.remap")
 require("danjd.set")
 require("danjd.harpoon")
+require("danjd.insert_comment")
 
 local augroup = vim.api.nvim_create_augroup
 
