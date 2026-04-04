@@ -428,7 +428,12 @@ local servers = {
   clangd = {},
   texlab = {},
   -- gopls = {},
-  basedpyright = {},
+  ty = {},
+  -- basedpyright = {
+  --   settings = {
+  --     python = { analysis = { useLibraryCodeForTypes = true, } }
+  --   }
+  -- },
   ruff = {},
   rust_analyzer = {},
   tinymist = {},
