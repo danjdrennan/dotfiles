@@ -76,6 +76,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Use LSP for formatting
+vim.keymap.set("n", "<leader>tf", ":FormatToggle<CR>", { desc = "Toggle Autoformat" })
+keymap("n", "<leader>f", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
+  local formatters = {}
+  for _, client in ipairs(clients) do
+    if client.server_capabilities.documentFormattingProvider then
+      table.insert(formatters, client)
+    end
+  end
+
+  if #formatters > 0 then
+    vim.lsp.buf.format({ id = formatters[1].id })
+  end
+end
+)
+
+
+
 -- Insert centered section comment (custom utility)
 keymap("n", "<leader>ic", function()
   local input = vim.fn.input("Section Name: ")
