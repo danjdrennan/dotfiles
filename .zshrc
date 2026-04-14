@@ -94,10 +94,6 @@ fi
 
 alias chat="zsh ~/.gpt/chatbot.sh"
 
-export CODE="/mnt/code"
-export COURSES="/mnt/courses"
-export DATA="/mnt/data"
-
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
@@ -122,10 +118,6 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
-
-vman() {
-  nvim -c "Man $1 $2" -c 'silent only'
-}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
