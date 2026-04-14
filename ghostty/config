@@ -17,6 +17,8 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
+image-storage-limit = 1_073_741_824
+
 keybind = ctrl+k=scroll_page_lines:-1
 keybind = ctrl+j=scroll_page_lines:1
 keybind = ctrl+shift+k=scroll_page_lines:-20
