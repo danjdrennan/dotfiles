@@ -22,7 +22,7 @@ keymap("n", "<C-p>", ":cprev<CR>")
 keymap("n", "<leader>bl", function() vim.cmd.buffers() end, { desc = "List buffers" })
 keymap("n", "<leader>bd", function()
   local current_buff = vim.api.nvim_get_current_buf()
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+  for buf in pairs(vim.api.nvim_list_bufs()) do
     if buf ~= current_buff and vim.api.nvim_buf_is_loaded(buf) then
       vim.api.nvim_buf_delete(buf, { force = true })
     end
