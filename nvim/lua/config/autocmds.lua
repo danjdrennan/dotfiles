@@ -16,9 +16,6 @@ autocmd("TextYankPost", {
   end,
 })
 
--- Format on save via LSP
-vim.g.disable_autoformat = false
-
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = augroup("FormatOnSave", { clear = true }),
   pattern = "*",
@@ -41,8 +38,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
--- Resolvers keyed by LSP server name. Each receives the project root and
--- returns a table of vim.opt_local overrides, or nil if nothing was found.
+-- Python: resolve language server's formatting settings to update local file
+-- settings.
 local lsp_opt_resolvers = {
   ruff = function(root)
     for _, name in ipairs({ "ruff.toml", ".ruff.toml", "pyproject.toml" }) do
@@ -96,8 +93,10 @@ vim.api.nvim_create_user_command("LspOptToggle", function()
   end
 end, {})
 
-vim.api.nvim_create_user_command("FormatToggle", function()
-    vim.g.disable_autoformat = not vim.g.disable_autoformat
-    print("Autoformat: " .. (vim.g.disable_autoformat and "Disabled" or "Enabled"))
-end, {})
+-- Format on save via LSP
+vim.g.disable_autoformat = false
 
+vim.api.nvim_create_user_command("FormatToggle", function()
+  vim.g.disable_autoformat = not vim.g.disable_autoformat
+  print("Autoformat: " .. (vim.g.disable_autoformat and "Disabled" or "Enabled"))
+end, {})
