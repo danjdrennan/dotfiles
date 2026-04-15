@@ -78,6 +78,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- Use LSP for formatting
 vim.keymap.set("n", "<leader>tf", ":FormatToggle<CR>", { desc = "Toggle Autoformat" })
+vim.keymap.set("n", "<leader>tg", ":LspOptToggle<CR>", { desc = "Toggle LSP-derived local opts" })
 keymap("n", "<leader>f", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
