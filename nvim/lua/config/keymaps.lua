@@ -96,8 +96,6 @@ keymap("n", "<leader>f", function()
 end
 )
 
-
-
 -- Insert centered section comment (custom utility)
 keymap("n", "<leader>ic", function()
   local input = vim.fn.input("Section Name: ")
