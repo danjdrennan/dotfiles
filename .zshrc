@@ -137,3 +137,13 @@ _tmux_start() {
   compadd closure-models transport-maps
 }
 compdef _tmux_start tmux-start
+
+# bun completions
+[ -s "/home/danjd/.bun/_bun" ] && source "/home/danjd/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH=/usr/local/cuda-12.8/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH
