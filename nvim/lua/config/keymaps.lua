@@ -101,7 +101,7 @@ keymap("n", "<leader>ic", function()
   local input = vim.fn.input("Section Name: ")
   if input == "" then return end
 
-  local width = 75
+  local width = vim.o.textwidth
   local text = input:upper()
 
   local cms = vim.bo.commentstring
