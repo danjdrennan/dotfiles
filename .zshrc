@@ -145,5 +145,9 @@ compdef _tmux_start tmux-start
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-export PATH=/usr/local/cuda-12.8/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH
+export PATH="/usr/local/cuda-12.8/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH"
+
+export PATH="$HOME/.texlive2026/bin/x86_64-linux:$PATH"
+export MANPATH="$HOME/.texlive2026/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="$HOME/.texlive2026/texmf-dist/doc/info:$INFOPATH"
