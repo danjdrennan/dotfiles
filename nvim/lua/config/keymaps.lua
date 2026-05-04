@@ -30,7 +30,7 @@ keymap("n", "<leader>bd", function()
 end, { desc = "Delete all other buffers" })
 
 -- Diagnostics
--- Neovim 0.11+ provides [d / ]d for jumping between diagnostics by default.
+-- Neovim 0.11+ provides `[d` and `]d` for jumping between diagnostics by default.
 -- These add the float + qflist bindings from the old config.
 keymap("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 keymap("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostics list" })
