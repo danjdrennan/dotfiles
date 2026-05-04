@@ -104,3 +104,20 @@ end, {})
 vim.api.nvim_create_user_command("ToggleInlayHints", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, {})
+
+vim.api.nvim_create_user_command("ToggleTextWidth", function()
+  local doc_tw = 73
+  local default_tw = 80
+  -- Just in case I've changed this for some reason.
+  if vim.bo.textwidth ~= default_tw and vim.bo.textwidth ~= doc_tw then
+    default_tw = vim.bo.textwidth
+  end
+
+  if vim.bo.textwidth == default_tw then
+    vim.bo.textwidth = doc_tw
+    print("textwidth: " .. doc_tw)
+  else
+    vim.bo.textwidth = default_tw
+    print("textwidth: " .. default_tw)
+  end
+end, {})

@@ -8,8 +8,3 @@ vim.opt_local.textwidth = 80
 vim.opt_local.colorcolumn = "80"
 vim.opt_local.wrap = false
 
-vim.opt_local.makeprg = "uv run $*"
-vim.opt_local.errorformat = '%E File "%f"\\, line %l\\, in %\\+%.%#,' ..
-    '%Z%\\s\\+^,' ..
-    '%C%\\s%\\+%m,' ..
-    '%-G%.%#'

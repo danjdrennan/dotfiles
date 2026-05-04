@@ -97,6 +97,7 @@ end
 )
 
 vim.keymap.set("n", "<leader>th", ":ToggleInlayHints<CR>", { desc = "Toggle LSP-derived inlay hints" })
+vim.keymap.set("n", "<leader>tw", ":ToggleTextWidth<CR>", { desc = "Toggle text width from default to 73" })
 
 -- Insert centered section comment (custom utility)
 keymap("n", "<leader>ic", function()
