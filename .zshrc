@@ -72,3 +72,6 @@ export LD_LIBRARY_PATH="/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH"
 export PATH="$HOME/.texlive2026/bin/x86_64-linux:$PATH"
 export MANPATH="$HOME/.texlive2026/texmf-dist/doc/man:$MANPATH"
 export INFOPATH="$HOME/.texlive2026/texmf-dist/doc/info:$INFOPATH"
+
+# rg completions
+fpath=($HOME/.zsh-complete $fpath)
