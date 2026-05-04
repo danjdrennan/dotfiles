@@ -100,3 +100,7 @@ vim.api.nvim_create_user_command("FormatToggle", function()
   vim.g.disable_autoformat = not vim.g.disable_autoformat
   print("Autoformat: " .. (vim.g.disable_autoformat and "Disabled" or "Enabled"))
 end, {})
+
+vim.api.nvim_create_user_command("ToggleInlayHints", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, {})

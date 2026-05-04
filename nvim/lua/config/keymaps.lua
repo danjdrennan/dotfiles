@@ -96,6 +96,8 @@ keymap("n", "<leader>f", function()
 end
 )
 
+vim.keymap.set("n", "<leader>th", ":ToggleInlayHints<CR>", { desc = "Toggle LSP-derived inlay hints" })
+
 -- Insert centered section comment (custom utility)
 keymap("n", "<leader>ic", function()
   local input = vim.fn.input("Section Name: ")
