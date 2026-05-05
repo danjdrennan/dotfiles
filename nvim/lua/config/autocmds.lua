@@ -16,7 +16,7 @@ autocmd("TextYankPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+autocmd("BufWritePost", {
   group = augroup("FormatOnSave", { clear = true }),
   pattern = "*",
   callback = function()
@@ -121,3 +121,4 @@ vim.api.nvim_create_user_command("ToggleTextWidth", function()
     print("textwidth: " .. default_tw)
   end
 end, {})
+
