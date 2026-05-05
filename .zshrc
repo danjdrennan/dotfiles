@@ -21,7 +21,7 @@ else
 fi
 
 if [[ -n $SSH_CONNECTION ]]; then
-  export TERM='ghostty'
+  export TERM='alacritty'
 fi
 
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
