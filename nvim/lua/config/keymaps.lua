@@ -41,7 +41,7 @@ keymap("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostics li
 --   gri  = implementation  grt  = type def       gO  = document symbols
 --   C-s  = signature help  K    = hover
 --
--- We layer on telescope-powered variants and a few extras.
+-- We layer on fzf-lua-powered variants and a few extras.
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
   callback = function(args)
@@ -50,14 +50,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
       keymap("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
     end
 
-    local ok, builtin = pcall(require, "telescope.builtin")
+    local ok, fzf = pcall(require, "fzf-lua")
     if ok then
-      map("gd", builtin.lsp_definitions, "Goto Definition")
-      map("grr", builtin.lsp_references, "Goto References")
-      map("gri", builtin.lsp_implementations, "Goto Implementation")
-      map("grt", builtin.lsp_type_definitions, "Type Definition")
-      map("<leader>ds", builtin.lsp_document_symbols, "Document Symbols")
-      map("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
+      map("gd", fzf.lsp_definitions, "Goto Definition")
+      map("grr", fzf.lsp_references, "Goto References")
+      map("gri", fzf.lsp_implementations, "Goto Implementation")
+      map("grt", fzf.lsp_typedefs, "Type Definition")
+      map("<leader>ds", fzf.lsp_document_symbols, "Document Symbols")
+      map("<leader>ws", fzf.lsp_live_workspace_symbols, "Workspace Symbols")
     end
 
     -- Preserve old keymaps that don't conflict with builtins
