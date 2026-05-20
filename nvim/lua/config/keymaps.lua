@@ -76,9 +76,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- Use LSP for formatting
-vim.keymap.set("n", "<leader>tf", ":FormatToggle<CR>", { desc = "Toggle Autoformat" })
-vim.keymap.set("n", "<leader>tg", ":LspOptToggle<CR>", { desc = "Toggle LSP-derived local opts" })
+keymap("n", "<leader>tf", ":FormatToggle<CR>", { desc = "Toggle Autoformat" })
+keymap("n", "<leader>tg", ":LspOptToggle<CR>", { desc = "Toggle LSP-derived local opts" })
+keymap("n", "<leader>th", ":ToggleInlayHints<CR>", { desc = "Toggle LSP-derived inlay hints" })
+keymap("n", "<leader>tw", ":ToggleTextWidth<CR>", { desc = "Toggle text width from default to 73" })
 keymap("n", "<leader>f", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
@@ -95,9 +96,6 @@ keymap("n", "<leader>f", function()
   end
 end
 )
-
-vim.keymap.set("n", "<leader>th", ":ToggleInlayHints<CR>", { desc = "Toggle LSP-derived inlay hints" })
-vim.keymap.set("n", "<leader>tw", ":ToggleTextWidth<CR>", { desc = "Toggle text width from default to 73" })
 
 -- Insert centered section comment (custom utility)
 keymap("n", "<leader>ic", function()
