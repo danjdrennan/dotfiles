@@ -41,11 +41,12 @@ return {
       },
       actions = {
         files = {
+          ["default"] = fzf.actions.file_edit,
           ["ctrl-q"] = { fn = fzf.actions.file_sel_to_qf, prefix = "select-all+" },
           ["ctrl-l"] = { fn = fzf.actions.file_sel_to_ll, prefix = "select-all+" },
-          ["ctrl-i"] = { fn = fzf.actions.toggle_ignore,  reuse = true, header = false },
-          ["ctrl-h"] = { fn = fzf.actions.toggle_hidden,  reuse = true, header = false },
-          ["ctrl-f"] = { fn = fzf.actions.toggle_follow,  reuse = true, header = false },
+          ["ctrl-i"] = { fn = fzf.actions.toggle_ignore, reuse = true, header = false },
+          ["ctrl-h"] = { fn = fzf.actions.toggle_hidden, reuse = true, header = false },
+          ["ctrl-f"] = { fn = fzf.actions.toggle_follow, reuse = true, header = false },
           ["alt-q"]  = false,
           ["alt-Q"]  = false,
           ["alt-i"]  = false,
