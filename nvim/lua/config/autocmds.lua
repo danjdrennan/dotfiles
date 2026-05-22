@@ -12,7 +12,7 @@ autocmd("BufWritePre", {
 autocmd("TextYankPost", {
   group = augroup("YankHighlight", { clear = true }),
   callback = function()
-    vim.hl.on_yank()
+    vim.hl.hl_op()
   end,
 })
 
@@ -121,4 +121,3 @@ vim.api.nvim_create_user_command("ToggleTextWidth", function()
     print("textwidth: " .. default_tw)
   end
 end, {})
-
