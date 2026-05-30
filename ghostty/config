@@ -9,9 +9,9 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 
 theme = Catppuccin Mocha
-font-size = 16
+font-size = 14
 font-family = ""
-font-family = Iosevka
+# font-family = Iosevka
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
