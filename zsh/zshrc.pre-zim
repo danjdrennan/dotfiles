@@ -1,0 +1,34 @@
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+if [[ -n $SSH_CONNECTION ]]; then
+  export TERM='alacritty'
+fi
+
+# rg completions
+fpath=($HOME/.zsh-complete $fpath)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="/home/danjd/.pixi/bin:$PATH"
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/danjd/.opam/opam-init/init.zsh' ]] || source '/home/danjd/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
+
+# cuda
+export PATH="/usr/local/cuda-12.8/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH"
+
+# texlive
+export PATH="$HOME/.texlive2026/bin/x86_64-linux:$PATH"
+export MANPATH="$HOME/.texlive2026/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="$HOME/.texlive2026/texmf-dist/doc/info:$INFOPATH"

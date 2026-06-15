@@ -1,0 +1,56 @@
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH="/home/danjd/.pixi/bin:$PATH"
+
+# cuda
+export PATH="/usr/local/cuda-12.8/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH"
+
+# texlive
+export PATH="$HOME/.texlive2026/bin/x86_64-linux:$PATH"
+export MANPATH="$HOME/.texlive2026/texmf-dist/doc/man:$MANPATH"
+export INFOPATH="$HOME/.texlive2026/texmf-dist/doc/info:$INFOPATH"
+
+# rg completions
+fpath=($HOME/.zsh-complete $fpath)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# OCaml config for autocompletions
+[[ ! -r '/home/danjd/.opam/opam-init/init.zsh' ]] || source '/home/danjd/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+if [[ -n $SSH_CONNECTION ]]; then
+  export TERM='alacritty'
+fi
+
+# ZIM CONFIG
+setopt HIST_IGNORE_ALL_DUPS
+
+bindkey -e
+
+setopt CORRECT
+
+SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+
+WORDCHARS=${WORDCHARS//[\/]}
+
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.config/zim
+
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init
+fi
+source ${ZIM_HOME}/init.zsh
