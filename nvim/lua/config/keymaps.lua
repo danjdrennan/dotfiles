@@ -29,19 +29,38 @@ keymap("n", "<leader>bd", function()
   end
 end, { desc = "Delete all other buffers" })
 
+-- Edit config
+keymap("n", "<leader>ec", ":EditConfig<CR>", { desc = "Edit config" })
+
 -- Diagnostics
 -- Neovim 0.11+ provides `[d` and `]d` for jumping between diagnostics by default.
 -- These add the float + qflist bindings from the old config.
 keymap("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 keymap("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostics list" })
 
+-- Insert centered section comment (custom utility)
+keymap("n", "<leader>ic", function()
+  local input = vim.fn.input("Section Name: ")
+  if input == "" then return end
+
+  local width = vim.o.textwidth
+  local text = input:upper()
+
+  local cms = vim.bo.commentstring
+  local comment_char = cms:gsub("%%s.*", ""):gsub("%s+$", "")
+
+  local padding = math.floor((width - #text) / 2)
+  local left_pad = string.rep(" ", padding)
+
+  local border = comment_char .. " " .. string.rep("=", width)
+  local centered_text = comment_char .. left_pad .. text
+
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_lines(0, row, row, false, { border, centered_text, border, "" })
+  pcall(vim.api.nvim_win_set_cursor, 0, { row + 4, 0 })
+end, { desc = "Insert centered section comment" })
+
 -- LSP keymaps applied on attach
--- Neovim 0.11+ provides these defaults:
---   grn  = rename          gra  = code action    grr = references
---   gri  = implementation  grt  = type def       gO  = document symbols
---   C-s  = signature help  K    = hover
---
--- We layer on fzf-lua-powered variants and a few extras.
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
   callback = function(args)
@@ -96,25 +115,3 @@ keymap("n", "<leader>f", function()
   end
 end
 )
-
--- Insert centered section comment (custom utility)
-keymap("n", "<leader>ic", function()
-  local input = vim.fn.input("Section Name: ")
-  if input == "" then return end
-
-  local width = vim.o.textwidth
-  local text = input:upper()
-
-  local cms = vim.bo.commentstring
-  local comment_char = cms:gsub("%%s.*", ""):gsub("%s+$", "")
-
-  local padding = math.floor((width - #text) / 2)
-  local left_pad = string.rep(" ", padding)
-
-  local border = comment_char .. " " .. string.rep("=", width)
-  local centered_text = comment_char .. left_pad .. text
-
-  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-  vim.api.nvim_buf_set_lines(0, row, row, false, { border, centered_text, border, "" })
-  pcall(vim.api.nvim_win_set_cursor, 0, { row + 4, 0 })
-end, { desc = "Insert centered section comment" })

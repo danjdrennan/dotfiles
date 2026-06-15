@@ -15,9 +15,9 @@ return {
       { "<leader>b", group = "Buffer" },
       { "<leader>c", group = "Code" },
       { "<leader>r", group = "Rename" },
-      { "g", group = "Goto" },
-      { "[", group = "Prev" },
-      { "]", group = "Next" },
+      { "g",         group = "Goto" },
+      { "[",         group = "Prev" },
+      { "]",         group = "Next" },
     },
   },
 }

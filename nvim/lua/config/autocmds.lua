@@ -1,5 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+local create_user_command = vim.api.nvim_create_user_command
 
 -- Strip trailing whitespace on save
 autocmd("BufWritePre", {
@@ -62,7 +63,7 @@ local lsp_opt_resolvers = {
 -- Saved pre-override values, keyed by bufnr.
 local saved_lsp_opts = {}
 
-vim.api.nvim_create_user_command("LspOptToggle", function()
+create_user_command("LspOptToggle", function()
   local bufnr = vim.api.nvim_get_current_buf()
   if saved_lsp_opts[bufnr] then
     for k, v in pairs(saved_lsp_opts[bufnr]) do
@@ -93,19 +94,33 @@ vim.api.nvim_create_user_command("LspOptToggle", function()
   end
 end, {})
 
+
+--
+-- USER COMMANDS
+--
+
+-- Quick access to modify the config.
+create_user_command("EditConfig", function()
+  local nvim_path = vim.fs.normalize("~/.config/nvim")
+  local bufnr = vim.api.nvim_create_buf(true, false)
+  vim.api.nvim_buf_attach(bufnr, true, {})
+  vim.api.nvim_buf_set_name(bufnr, nvim_path)
+  vim.api.nvim_win_set_buf(0, bufnr)
+end, {})
+
 -- Format on save via LSP
 vim.g.disable_autoformat = false
 
-vim.api.nvim_create_user_command("FormatToggle", function()
+create_user_command("FormatToggle", function()
   vim.g.disable_autoformat = not vim.g.disable_autoformat
   print("Autoformat: " .. (vim.g.disable_autoformat and "Disabled" or "Enabled"))
 end, {})
 
-vim.api.nvim_create_user_command("ToggleInlayHints", function()
+create_user_command("ToggleInlayHints", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, {})
 
-vim.api.nvim_create_user_command("ToggleTextWidth", function()
+create_user_command("ToggleTextWidth", function()
   local doc_tw = 73
   local default_tw = 80
   -- Just in case I've changed this for some reason.
