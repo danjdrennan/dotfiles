@@ -12,7 +12,7 @@ vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
-vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.o.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.o.swapfile = false
 vim.o.backup = false
 

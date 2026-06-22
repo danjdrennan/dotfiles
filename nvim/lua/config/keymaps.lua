@@ -9,7 +9,7 @@ keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- File explorer
-keymap("n", "<leader>pv", vim.cmd.Ex)
+keymap("n", "-", "<Cmd>Oil<CR>", { desc = "Open parent directory" })
 
 -- Center on G
 keymap("n", "G", "Gzz")
@@ -19,26 +19,24 @@ keymap("n", "<C-n>", ":cnext<CR>")
 keymap("n", "<C-p>", ":cprev<CR>")
 
 -- Buffer management
-keymap("n", "<leader>bl", function() vim.cmd.buffers() end, { desc = "List buffers" })
 keymap("n", "<leader>bd", function()
-  local current_buff = vim.api.nvim_get_current_buf()
+  local curbuf = vim.api.nvim_get_current_buf()
   for buf in pairs(vim.api.nvim_list_bufs()) do
-    if buf ~= current_buff and vim.api.nvim_buf_is_loaded(buf) then
+    if buf ~= curbuf and vim.api.nvim_buf_is_loaded(buf) then
       vim.api.nvim_buf_delete(buf, { force = true })
     end
   end
 end, { desc = "Delete all other buffers" })
 
 -- Edit config
-keymap("n", "<leader>ec", ":EditConfig<CR>", { desc = "Edit config" })
+keymap("n", "<leader>ec", function()
+  local oil = require("oil")
+  oil.open(vim.fn.stdpath("config"))
+end, { desc = "Edit config" })
 
--- Diagnostics
--- Neovim 0.11+ provides `[d` and `]d` for jumping between diagnostics by default.
--- These add the float + qflist bindings from the old config.
 keymap("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 keymap("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostics list" })
 
--- Insert centered section comment (custom utility)
 keymap("n", "<leader>ic", function()
   local input = vim.fn.input("Section Name: ")
   if input == "" then return end
@@ -52,7 +50,7 @@ keymap("n", "<leader>ic", function()
   local padding = math.floor((width - #text) / 2)
   local left_pad = string.rep(" ", padding)
 
-  local border = comment_char .. " " .. string.rep("=", width)
+  local border = comment_char .. " " .. string.rep("-", width - 1 - #comment_char)
   local centered_text = comment_char .. left_pad .. text
 
   local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
@@ -79,15 +77,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
       map("<leader>ws", fzf.lsp_live_workspace_symbols, "Workspace Symbols")
     end
 
-    -- Preserve old keymaps that don't conflict with builtins
-    map("<leader>rn", vim.lsp.buf.rename, "Rename")
-    map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-    map("gD", vim.lsp.buf.declaration, "Goto Declaration")
     map("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
     map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
-    map("<leader>wl", function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, "Workspace List Folders")
 
     vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
       vim.lsp.buf.format()
@@ -95,10 +86,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-keymap("n", "<leader>tf", ":FormatToggle<CR>", { desc = "Toggle Autoformat" })
+keymap("n", "<leader>tf", function()
+  vim.g.disable_autoformat = not vim.g.disable_autoformat
+end, { desc = "Toggle Autoformat" })
 keymap("n", "<leader>tg", ":LspOptToggle<CR>", { desc = "Toggle LSP-derived local opts" })
-keymap("n", "<leader>th", ":ToggleInlayHints<CR>", { desc = "Toggle LSP-derived inlay hints" })
-keymap("n", "<leader>tw", ":ToggleTextWidth<CR>", { desc = "Toggle text width from default to 73" })
+keymap("n", "<leader>th", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Toggle LSP-derived inlay hints" })
 keymap("n", "<leader>f", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
