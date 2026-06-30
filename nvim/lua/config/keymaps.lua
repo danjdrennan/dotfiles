@@ -89,7 +89,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 keymap("n", "<leader>tf", function()
   vim.g.disable_autoformat = not vim.g.disable_autoformat
 end, { desc = "Toggle Autoformat" })
-keymap("n", "<leader>tg", ":LspOptToggle<CR>", { desc = "Toggle LSP-derived local opts" })
 keymap("n", "<leader>th", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle LSP-derived inlay hints" })
