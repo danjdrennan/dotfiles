@@ -1,10 +1,18 @@
 # ~/.zshenv
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/opt/texlive2026/bin/x86_64-linux
+
+export MANPATH=$MANPATH:/opt/texlive2026/tex-mf/doc/man
+export MANPATH=$MANPATH:$HOME/.local/gh_2.96.0_linux_amd64/share/man/
+
 export DOWNLOADS=$HOME/Downloads
 export CODE="/mnt/code"
 export COURSES="/mnt/courses"
 export DATA="/mnt/data"
+
+export PHD=/home/danjd/projects/phd-completion
+export TODAY=$(date --iso-8601)
 
 alias glu="git lu"
 alias gca="git ca"

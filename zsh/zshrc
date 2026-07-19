@@ -5,11 +5,6 @@ export PATH="/home/danjd/.pixi/bin:$PATH"
 export PATH="/usr/local/cuda-12.8/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH"
 
-# texlive
-export PATH="$HOME/.texlive2026/bin/x86_64-linux:$PATH"
-export MANPATH="$HOME/.texlive2026/texmf-dist/doc/man:$MANPATH"
-export INFOPATH="$HOME/.texlive2026/texmf-dist/doc/info:$INFOPATH"
-
 # rg completions
 fpath=($HOME/.zsh-complete $fpath)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
