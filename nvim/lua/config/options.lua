@@ -1,3 +1,19 @@
+-- Experimental
+require('vim._core.ui2').enable({
+  targets = {'cmd', 'dialog', 'msg', 'pager'},
+  cmd = { height = 0.75, },
+  dialog = {
+    height = 0.75,
+  },
+  msg = {
+    height = 0.75,
+    timeout = 4000,
+  },
+  pager = {
+    height = 0.999,
+  },
+})
+
 -- Disable mouse
 vim.o.mouse = ""
 

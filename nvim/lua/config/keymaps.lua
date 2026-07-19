@@ -34,7 +34,14 @@ keymap("n", "<leader>ec", function()
   oil.open(vim.fn.stdpath("config"))
 end, { desc = "Edit config" })
 
+-- Todo lists
+keymap("n", "<leader>pt", function()
+  local oil = require("oil")
+  oil.open("~/todo")
+end, { desc = "View todo lists" })
+
 keymap("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+keymap("n", "<leader>lq", vim.diagnostic.setloclist, { desc = "Open diagnostics loc list" })
 keymap("n", "<leader>q", vim.diagnostic.setqflist, { desc = "Open diagnostics list" })
 
 keymap("n", "<leader>ic", function()
@@ -50,7 +57,7 @@ keymap("n", "<leader>ic", function()
   local padding = math.floor((width - #text) / 2)
   local left_pad = string.rep(" ", padding)
 
-  local border = comment_char .. " " .. string.rep("-", width - 1 - #comment_char)
+  local border = comment_char .. " " .. string.rep("-", width - 2 - #comment_char)
   local centered_text = comment_char .. left_pad .. text
 
   local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
@@ -66,6 +73,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local function map(keys, func, desc)
       keymap("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
     end
+
 
     local ok, fzf = pcall(require, "fzf-lua")
     if ok then
@@ -89,9 +97,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 keymap("n", "<leader>tf", function()
   vim.g.disable_autoformat = not vim.g.disable_autoformat
 end, { desc = "Toggle Autoformat" })
+
 keymap("n", "<leader>th", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle LSP-derived inlay hints" })
+
 keymap("n", "<leader>f", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
