@@ -4,7 +4,7 @@ return {
   root_markers = { "build.zig", ".git" },
   settings = {
     zls = {
-      zig_exe_path = vim.fn.expand("~/.local/bin/zig"),
+      zig_exe_path = vim.fn.expand("/usr/local/bin/zig"),
     },
   },
 }
