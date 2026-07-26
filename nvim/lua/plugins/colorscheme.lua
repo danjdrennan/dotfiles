@@ -1,13 +1,32 @@
 return {
-  "catppuccin/nvim",
-  name = "catppuccin",
-  lazy = false,
+  -- https://github.com/ellisonleao/gruvbox.nvim#configuration
+  "ellisonleao/gruvbox.nvim",
   priority = 1000,
-  opts = {
-    no_italic = true,
-  },
-  config = function(_, opts)
-    require("catppuccin").setup(opts)
-    vim.cmd.colorscheme("catppuccin-mocha")
+  config = function()
+    -- Default options:
+    require("gruvbox").setup({
+      terminal_colors = true,
+      undercurl = true,
+      underline = true,
+      bold = true,
+      italic = {
+        strings = false,
+        emphasis = false,
+        comments = false,
+        operators = false,
+        folds = false,
+      },
+      strikethrough = false,
+      invert_selection = false,
+      invert_signs = false,
+      invert_tabline = false,
+      inverse = true,
+      contrast = "",
+      palette_overrides = {},
+      overrides = {},
+      dim_inactive = false,
+      transparent_mode = false,
+    })
+    vim.cmd.colorscheme("gruvbox")
   end,
 }
