@@ -4,10 +4,6 @@ local keymap = vim.keymap.set
 keymap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 keymap("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- Remap for dealing with word wrap
-keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
 -- File explorer
 keymap("n", "-", "<Cmd>Oil<CR>", { desc = "Open parent directory" })
 
